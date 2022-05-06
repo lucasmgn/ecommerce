@@ -11,13 +11,17 @@ import java.util.Map;
 
 @Getter //Para gerar o getter de todos os atributos com a lib lombok
 @Setter //Para gerar o setter de todos os atributos
-@SecondaryTable(name="cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id")) //criando uma tabela secundaria com o nome de cliente_detalhe e sua primaryKey é a mesma do cliente criado
+@SecondaryTable(name="cliente_detalhe",
+        pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"),
+        foreignKey = @ForeignKey(name = "fk_cliente_detalhe_cliente")) //criando uma tabela secundaria com o nome de cliente_detalhe e sua primaryKey é a mesma do cliente criado
 @Entity
 @Table(name = "cliente")
 public class Cliente extends EntidadeBaseInteger{
 
     @ElementCollection
-    @CollectionTable(name = "cliente_contato", joinColumns = @JoinColumn(name = "cliente_id"))
+    @CollectionTable(name = "cliente_contato",
+            joinColumns = @JoinColumn(name = "cliente_id",
+                    foreignKey = @ForeignKey(name = "fk_cliente_contato")))
     @MapKeyColumn(name = "tipo")
     @Column(name = "descricao")
     private Map<String, String> contatos;

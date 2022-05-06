@@ -53,5 +53,4 @@ public class HerancaTest extends EntityManagerTest {
         Assert.assertNotNull(pedidoVerificacao.getPagamento());
     }
 
-
 }

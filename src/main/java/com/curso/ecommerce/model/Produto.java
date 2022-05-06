@@ -34,20 +34,24 @@ public class Produto extends EntidadeBaseInteger{
     private byte[] foto;
 
     @ManyToMany
-    @JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id"),
-            inverseJoinColumns = @JoinColumn(name= "categoria_id"))
+    @JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id", nullable = false,
+            foreignKey = @ForeignKey(name= "fk_produto_categoria_produto")),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id", nullable = false,
+                    foreignKey = @ForeignKey(name = "fk_produto_categoria_categoria")))
     private List<Categoria> categorias;
 
     @OneToOne(mappedBy = "produto")
     private Estoque estoque;
 
     @ElementCollection //Para gerenciar a lista de tag
-    @CollectionTable(name="produto_tag", joinColumns = @JoinColumn(name = "produto_id")) //Customizar a tabela
+    @CollectionTable(name="produto_tag", joinColumns = @JoinColumn(name = "produto_id",
+            foreignKey = @ForeignKey(name = "fk_produto_tags"))) //Customizar a tabela
     @Column(name = "tag") //coluna para guardar a tag do produto
     private  List<String> tags;
 
     @ElementCollection
-    @CollectionTable(name="produto_atributo", joinColumns = @JoinColumn(name = "produto_id"))
+    @CollectionTable(name="produto_atributo", joinColumns = @JoinColumn(name = "produto_id",
+            foreignKey = @ForeignKey(name = "fk_produto_atributos")))
     private List<Atributo> atributos;
 
 }
