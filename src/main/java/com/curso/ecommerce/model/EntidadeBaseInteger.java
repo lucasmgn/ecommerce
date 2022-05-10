@@ -12,7 +12,7 @@ import jakarta.persistence.MappedSuperclass;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)//Para gerar o Equals e o HashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @MappedSuperclass
 public class EntidadeBaseInteger {
 
@@ -20,5 +20,4 @@ public class EntidadeBaseInteger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
 }

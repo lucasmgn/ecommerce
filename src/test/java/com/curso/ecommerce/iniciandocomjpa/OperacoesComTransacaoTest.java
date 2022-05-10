@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
@@ -26,17 +27,19 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     }
 
     @Test
-    public void MostrarDiferencaPersistMerge(){
+    public void mostrarDiferencaPersistMerge(){
         Produto produtoPersiste = new Produto();
 
         //produtoPersiste.setId(5);
         produtoPersiste.setNome("Smartphone One Plus");
         produtoPersiste.setDescricao("O processador mais rápido.");
         produtoPersiste.setPreco(new BigDecimal(2000));
+        produtoPersiste.setDataCriacao(LocalDateTime.now());
+
 
         entityManager.getTransaction().begin();
-
         entityManager.persist(produtoPersiste); //O método persist só serve para persistir
+
         produtoPersiste.setNome("Smartphone Two Plus");
         entityManager.getTransaction().commit();
 
@@ -52,9 +55,9 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produtoMerge.setNome("Notebook Dell");
         produtoMerge.setDescricao("O melhor da categoria.");
         produtoMerge.setPreco(new BigDecimal(3000));
+        produtoMerge.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
-
         produtoMerge = entityManager.merge(produtoMerge); //O método merge faz uma cópia e manda para o entityManager, para pegar a cópia deve se fazer dessa forma
         produtoMerge.setNome("Notebook Dell 2");
         entityManager.getTransaction().commit();
@@ -73,16 +76,15 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setNome("Microfone Rode Videmic");
         produto.setDescricao("A melhor qualidade de som");
         produto.setPreco(new BigDecimal(1000));
+        produto.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
-
-        entityManager.merge(produto); //O método merge pode ser utilizado tanto para atualizar quanto para inserir
-
+        Produto produto1 = entityManager.merge(produto); //O método merge pode ser utilizado tanto para atualizar quanto para inserir
         entityManager.getTransaction().commit();
 
         entityManager.clear(); //Limpar a entidade que está na memória
 
-        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto1.getId());
         Assert.assertNotNull(produtoVerificacao);
     }
 
@@ -106,10 +108,11 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         Produto produto = new Produto();
 
         //É preciso que todos os atributos sejam preenchidos se não o entityManager vai colocar como null
-        //produto.setId(1); //O único que não pode ser alterado
+        produto.setId(1); //O único que não pode ser alterado
         produto.setNome("Kindle PaperWhite");
         produto.setDescricao("Conheça o novo Kindle");
         produto.setPreco(new BigDecimal(599));
+        produto.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         entityManager.merge(produto); //Para fazer alteração no objeto
@@ -144,6 +147,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setNome("Câmera Canon");
         produto.setDescricao("A melhor definição para suas fotos");
         produto.setPreco(new BigDecimal(5000));
+        produto.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
 
@@ -162,7 +166,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     public void abrirFecharTransacao(){
-        Produto produto = new Produto(); //Somente para o metódos não mostrarem erros
+       // Produto produto = new Produto(); //Somente para o metódos não mostrarem erros
 
         //Marco de inicio a transação, numa aplicação profissional isso é automatizado
         entityManager.getTransaction().begin();

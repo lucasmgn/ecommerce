@@ -13,21 +13,19 @@ import java.util.List;
 
 @Getter
 @Setter
-@EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class})
+@EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
 @Entity
 @Table(name = "pedido")
 public class Pedido extends EntidadeBaseInteger {
 
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "cliente_id",
-            nullable = false,
-            foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
 
-    @Column(name = "data_criacao", updatable = false)
+    @Column(name = "data_criacao", updatable = false, nullable = false)
     private LocalDateTime dataCriacao;
 
     @Column(name = "data_ultima_atualizacao", insertable = false)
@@ -39,8 +37,10 @@ public class Pedido extends EntidadeBaseInteger {
     @OneToOne(mappedBy = "pedido")
     private NotaFiscal notaFiscal;
 
+    @Column(nullable = false)
     private BigDecimal total;
 
+    @Column(length = 30, nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 

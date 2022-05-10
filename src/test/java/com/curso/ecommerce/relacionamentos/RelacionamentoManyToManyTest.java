@@ -1,12 +1,11 @@
 package com.curso.ecommerce.relacionamentos;
 
 import com.curso.ecommerce.EntityManagerTest;
-import com.curso.ecommerce.model.*;
+import com.curso.ecommerce.model.Categoria;
+import com.curso.ecommerce.model.Produto;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class RelacionamentoManyToManyTest extends EntityManagerTest {

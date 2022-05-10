@@ -14,6 +14,7 @@ public class SecondaryTableTest extends EntityManagerTest {
     public void salvarCliente() {
         Cliente cliente = new Cliente();
         cliente.setNome("Leandro Silva");
+        cliente.setCpf("011.548.639-33");
         cliente.setSexo(SexoCliente.MASCULINO);
         cliente.setDataNascimento(LocalDate.of(1998,1,12));
 

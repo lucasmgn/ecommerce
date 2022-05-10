@@ -14,6 +14,7 @@ public class MapeandoEnumeracoesTest extends EntityManagerTest {
 //        cliente.setId(4); Utilizando a IDENTITY
         cliente.setNome("José Ramos");
         cliente.setSexo(SexoCliente.MASCULINO);
+        cliente.setCpf("018.545.325-99");
 
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);

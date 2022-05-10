@@ -9,11 +9,10 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-//@DiscriminatorValue("cartao")
+@DiscriminatorValue("cartao")
 @Entity
-@Table(name = "pagamento_cartao")
 public class PagamentoCartao extends Pagamento {
 
-    @Column(name = "numero_cartao")
+    @Column(name = "numero_cartao", length = 100)
     private String numeroCartao;
 }

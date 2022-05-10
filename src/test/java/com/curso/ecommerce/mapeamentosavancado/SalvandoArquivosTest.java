@@ -7,11 +7,7 @@ import com.curso.ecommerce.model.Produto;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Date;
 
 public class SalvandoArquivosTest extends EntityManagerTest {

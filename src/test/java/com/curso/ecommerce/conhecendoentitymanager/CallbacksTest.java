@@ -3,12 +3,12 @@ package com.curso.ecommerce.conhecendoentitymanager;
 import com.curso.ecommerce.EntityManagerTest;
 import com.curso.ecommerce.model.Cliente;
 import com.curso.ecommerce.model.Pedido;
-import com.curso.ecommerce.model.Produto;
 import com.curso.ecommerce.model.StatusPedido;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class CallbacksTest extends EntityManagerTest {
 
@@ -17,8 +17,10 @@ public class CallbacksTest extends EntityManagerTest {
         Cliente cliente = entityManager.find(Cliente.class, 1);
 
         Pedido pedido = new Pedido();
+        pedido.setDataCriacao(LocalDateTime.now());
         pedido.setCliente(cliente);
         pedido.setStatus(StatusPedido.AGUARDANDO);
+        pedido.setTotal(BigDecimal.TEN);
 
         entityManager.getTransaction().begin();
 

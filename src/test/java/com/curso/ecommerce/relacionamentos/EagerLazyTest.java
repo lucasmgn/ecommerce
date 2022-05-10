@@ -1,9 +1,7 @@
 package com.curso.ecommerce.relacionamentos;
 
 import com.curso.ecommerce.EntityManagerTest;
-import com.curso.ecommerce.model.Categoria;
 import com.curso.ecommerce.model.Pedido;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class EagerLazyTest extends EntityManagerTest {

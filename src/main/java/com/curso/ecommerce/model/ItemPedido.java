@@ -9,31 +9,29 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Getter //Para gerar o getter de todos os atributos com a lib lombok
-@Setter //Para gerar o setter de todos os atributos
-@EqualsAndHashCode(onlyExplicitlyIncluded = true) //Para gerar o Equals e o HashCode
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "item_pedido")
 public class ItemPedido {
 
-    @EmbeddedId//o id incorporado
+    @EmbeddedId
     private ItemPedidoId id;
 
     @MapsId("pedidoId")
     @ManyToOne(optional = false)
-    @JoinColumn(name="pedido_id",nullable = false,
-            foreignKey = @ForeignKey(name = "fk_item_pedido_pedido"))
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
     @MapsId("produtoId")
     @ManyToOne(optional = false)
-    @JoinColumn(name="produto_id",nullable = false,
-            foreignKey = @ForeignKey(name = "fk_item_pedido_produto"))
+    @JoinColumn(name = "produto_id")
     private Produto produto;
 
-    @Column(name="preco_produto")
+    @Column(name = "preco_produto", nullable = false)
     private BigDecimal precoProduto;
 
+    @Column(nullable = false)
     private Integer quantidade;
-
 }

@@ -11,15 +11,14 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Embeddable //incorporar, pq vai incorporar essa classe em outra
+@Embeddable
 public class ItemPedidoId implements Serializable {
 
     @EqualsAndHashCode.Include
-    @Column(name="pedido_id")
+    @Column(name = "pedido_id")
     private Integer pedidoId;
 
     @EqualsAndHashCode.Include
-    @Column(name="produto_id")
+    @Column(name = "produto_id")
     private Integer produtoId;
-
 }

@@ -5,9 +5,9 @@ import com.curso.ecommerce.model.Pedido;
 import com.curso.ecommerce.model.StatusPedido;
 import org.junit.Test;
 
-public class GerenciamentoTransacoes extends EntityManagerTest {
+public class gerenciamentoTransacoes extends EntityManagerTest {
 
-    @Test
+    @Test(expected = Exception.class)
     public void abrirFecharCancelarTransacao(){
         try{
             entityManager.getTransaction().begin();
