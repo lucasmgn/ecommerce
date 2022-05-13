@@ -10,7 +10,9 @@ import java.util.Map;
 
 @Getter
 @Setter
-@SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
+@SecondaryTable(name = "cliente_detalhe",
+        pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"),
+        foreignKey = @ForeignKey(name= "fk_cliente_detalhe_cliente"))
 @Entity
 @Table(name = "cliente",
         uniqueConstraints = { @UniqueConstraint(name = "unq_cpf", columnNames = { "cpf" }) },
@@ -25,7 +27,8 @@ public class Cliente extends EntidadeBaseInteger {
 
     @ElementCollection
     @CollectionTable(name = "cliente_contato",
-            joinColumns = @JoinColumn(name = "cliente_id"))
+            joinColumns = @JoinColumn(name = "cliente_id", nullable = false,
+                    foreignKey = @ForeignKey(name = "fk_cliente_contato_cliente")))
     @MapKeyColumn(name = "tipo")
     @Column(name = "descricao")
     private Map<String, String> contatos;

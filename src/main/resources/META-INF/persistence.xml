@@ -7,21 +7,55 @@
         <properties>
             <property name="jakarta.persistence.jdbc.url"
                       value="jdbc:mysql://localhost/ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=UTC" />
-            <property name="jakarta.persistence.jdbc.user" value="root" />
-            <property name="jakarta.persistence.jdbc.password" value="auhpuk260202" />
-            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+            <property name="jakarta.persistence.jdbc.user"
+                      value="root" />
+            <property name="jakarta.persistence.jdbc.password"
+                      value="auhpuk260202" />
+            <property name="jakarta.persistence.jdbc.driver"
+                      value="com.mysql.cj.jdbc.Driver" />
 
             <!--Essas propriedades são para estudos, não são usadas em produção-->
             <!--Remove e cria um BD assim que iniciamos-->
-            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
-            <property name="javax.persistence.sql-load-script-source" value="META-INF/banco-de-dados/dados-iniciais.sql"/>
+            <!--Tem outros valores como o none que faz a geração do bd n existir, tem o drop que só faz apagar o bd e o create que cria as tabelas apenas-->
+            <property name="jakarta.persistence.schema-generation.database.action"
+                      value="none"/>
+
+            <!--Criando o bd a partir dos metadados e depois utilizar os scripts-->
+            <property name="javax.persistence.schema-generation.create-source"
+                      value="metadata-then-script"/>
+            <!--Apagando o bd a partir dos meta dados e depois utilizar os scripts-->
+            <property name="javax.persistence.schema-generation.drop-source"
+                      value="metadata-then-script"/>
+
+            <property name="javax.persistence.schema-generation.create-script-source"
+                      value="META-INF/banco-de-dados/script-criacao1.sql"/>
+            <property name="javax.persistence.schema-generation.drop-script-source"
+                      value="META-INF/banco-de-dados/script-remocao.sql"/>
+
+            <!--Tanto usando o none quanto o drop não é executado a propriedade dos dados iniciais-->
+            <property name="javax.persistence.sql-load-script-source"
+                      value="META-INF/banco-de-dados/dados-iniciais.sql"/>
+
+            <!--Exportar o script drop, create ou drop and create-->
+            <property name="jakarta.persistence.schema-generation.scripts.action"
+                      value="none"/>
+
+            <!--Exportando para uma pasta local o arquivo de criacao e remoção do bd, criado um caminho para
+             uma pasta vázia e depois executando o bd, os sql são enviados como arquivo para a pasta-->
+            <property name="javax.persistence.schema-generation.scripts.create-target"
+                      value="C:/Users/Magno/Itelli/sql/script-criacao-exportado.sql"/>
+            <property name="javax.persistence.schema-generation.scripts.drop-target"
+                      value="C:/Users/Magno/Itelli/sql/script-remocao-exportado.sql"/>
 
             <!--Essas propriedades são tanto para estudo como para produção-->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" /> <!---->
+            <property name="hibernate.dialect"
+                      value="org.hibernate.dialect.MySQLDialect" /> <!---->
 
             <!--Essas propriedades são para estudos, não são usadas em produção, elas mostram e formatam o sql-->
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.show_sql"
+                      value="true" />
+            <property name="hibernate.format_sql"
+                      value="true" />
 
         </properties>
     </persistence-unit>
