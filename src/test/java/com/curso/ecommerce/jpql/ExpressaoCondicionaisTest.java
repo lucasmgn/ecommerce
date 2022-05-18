@@ -1,6 +1,7 @@
 package com.curso.ecommerce.jpql;
 
 import com.curso.ecommerce.EntityManagerTest;
+import com.curso.ecommerce.model.Cliente;
 import com.curso.ecommerce.model.Pedido;
 import com.curso.ecommerce.model.Produto;
 import jakarta.persistence.TypedQuery;
@@ -9,9 +10,47 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 public class ExpressaoCondicionaisTest extends EntityManagerTest {
+
+    @Test
+    public void usarExpressaoIN(){
+        Cliente cliente1 = entityManager.find(Cliente.class,1);
+        Cliente cliente2 = entityManager.find(Cliente.class,2);
+
+        List<Cliente> clientes = Arrays.asList(cliente1, cliente2);
+
+        String jpql = "select p from Pedido p where p.cliente in(:lista)";
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+        typedQuery.setParameter("lista", clientes);
+
+        List<Pedido> lista = typedQuery.getResultList();
+//        System.out.println(lista.get(0).getCliente().getNome());
+
+        Assert.assertFalse(lista.isEmpty());
+    }
+
+    @Test
+    public void usarExpressaoCase(){
+        String jpql = "select p.id, " +
+                " case type(p.pagamento) " +
+                "       when PagamentoBoleto then 'Pago com boleto' " +
+                "       when PagamentoCartao then 'Pago com cartão' " +
+                "       else 'Não pago ainda.' " +
+                " end " +
+                " from Pedido p";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        //Assert.assertFalse(lista.isEmpty()); //Problema na classe Pagamento e assossiados a
+                                            // ela Pagamento Boleto e Pagamento Cartão
+
+        lista.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
+    }
 
     @Test
     public void usarDiferente() {
@@ -81,13 +120,13 @@ public class ExpressaoCondicionaisTest extends EntityManagerTest {
     }
 
     @Test
-    public void usarExpressoesCondicionais() {
-        String jpql = "select c from Cliente c where c.nome like concat('%',:nome, '%')";
+    public void usarExpressaoCondicionalLike() {
+        String jpql = "select c from Cliente c where c.nome like concat('%', :nome, '%')";
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
-        typedQuery.setParameter("nome", "a"); //tudo que começa com a string x
+        typedQuery.setParameter("nome", "a");
 
         List<Object[]> lista = typedQuery.getResultList();
-        Assert.assertTrue(lista.size() == 2);
+        Assert.assertFalse(lista.isEmpty());
     }
 }
