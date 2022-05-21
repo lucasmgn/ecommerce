@@ -6,16 +6,26 @@ import jakarta.persistence.Query;
 import org.junit.Test;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.stream.Collectors;
 
 public class OperacoesEmLoteTest extends EntityManagerTest {
 
     private static final int LIMITE_INSERCOES = 4;
+
+    @Test
+    public void remocaoEmLote(){
+        entityManager.getTransaction().begin();
+        //Apagando produtos id de 8 ao 12
+        String jpql = "delete Produto p where p.id between 8 and 12";
+
+        Query query = entityManager.createQuery(jpql);
+        query.executeUpdate();
+
+        entityManager.getTransaction().commit();
+    }
 
     @Test
     public void atualizarEmLote(){
@@ -26,23 +36,23 @@ public class OperacoesEmLoteTest extends EntityManagerTest {
 
         Query query = entityManager.createQuery(jpql);
         query.setParameter("categoria", 2);
-        query.setParameter("porcentagem", new BigDecimal(0.1));
+        query.setParameter("porcentagem", new BigDecimal("0.1"));
         query.executeUpdate();
 
         entityManager.getTransaction().commit();
     }
 
     @Test
-    public void inserirEmLote() throws IOException {
-        InputStream in = OperacoesEmLoteTest.class.getClassLoader().getResourceAsStream("produtos/importar.txt");
+    public void inserirEmLote() {
+        InputStream ine = OperacoesEmLoteTest.class.getClassLoader().getResourceAsStream("produtos/importar.txt");
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(ine));
 
         entityManager.getTransaction().begin();
 
         int contInsercoes = 0;
 
-        for (String linha : reader.lines().collect(Collectors.toList())){
+        for (String linha : reader.lines().toList()){
             if(linha.isBlank()){
                 continue;
             }
