@@ -26,9 +26,10 @@ insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) value
 
 insert into pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) values (1, 'RECEBIDO', 'cartao', '0123', null);
 insert into pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) values (2, 'PROCESSANDO', 'cartao', '4567', null);
-insert into pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) values (3, 'RECEBIDO', 'boleto', null, '8910');
+insert into pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras, data_vencimento) values (3, 'RECEBIDO', 'boleto', null, '8910', date_sub(sysdate(), interval 2 day);
 insert into pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) values (4, 'PROCESSANDO', 'cartao', '1112', null);
 insert into pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) values (5, 'PROCESSANDO', 'cartao', '15556', null);
+insert into pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras, data_vencimento) values (6, 'PROCESSANDO', 'boleto', null, '486', date_add(sysdate(), interval 2 day));
 
 insert into nota_fiscal(pedido_id, xml, data_emissao) values (2, '<xml/>', sysdate());
 
