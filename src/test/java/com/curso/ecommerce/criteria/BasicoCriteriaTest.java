@@ -19,12 +19,37 @@ import java.util.List;
 public class BasicoCriteriaTest extends EntityManagerTest {
 
     @Test
+    public void usarDistinct(){
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class); //Tabela de crtério
+
+        Root<Pedido> root = criteriaQuery.from((Pedido.class)); //Tabela raiz
+        root.join("itens");
+
+        /*
+        * Usando o distinct para não repetir valores expercificamente do 'id'
+        * */
+        criteriaQuery.select(root).distinct(true);
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Pedido> lista = typedQuery.getResultList();
+
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(arr -> System.out.println("ID: " + arr.getId()));
+    }
+
+
+    @Test
     public void OrdenarResultados(){
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class); //Tabela de crtério
 
         Root<Cliente> root = criteriaQuery.from((Cliente.class)); //Tabela raiz
 
+        /*
+        * Ordenando 'id' dos clietnes em ordem decrescente
+        * */
         criteriaQuery.orderBy(criteriaBuilder.desc(root.get("id")));
 
         TypedQuery<Cliente> typedQuery = entityManager.createQuery(criteriaQuery);

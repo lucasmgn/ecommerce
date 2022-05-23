@@ -21,6 +21,10 @@ public class FuncoesCriteriaTest extends EntityManagerTest {
 
         Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
+        /*
+        * Criando funções por cima da coluna total da tabela pedido,
+        * funções count, avg, sum, min e max
+        * */
         criteriaQuery.multiselect(
                 criteriaBuilder.count(root.get("id")),
                 criteriaBuilder.avg(root.get("total")),

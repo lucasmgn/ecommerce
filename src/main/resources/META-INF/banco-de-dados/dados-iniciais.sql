@@ -4,7 +4,7 @@ insert into produto (id, nome, preco, data_criacao, descricao) values (4, 'Câme
 insert into produto (id, nome, preco, data_criacao, descricao) values (5, 'Microfone de Lapela', 50.0, sysdate(), 'Produto massa');
 
 insert into cliente (id, nome, cpf) values (1, 'Lucas Magno', '095.917.815-55');
-insert into cliente (id, nome, cpf) values (2, 'Marcos Mariano', '99888');
+insert into cliente (id, nome, cpf) values (2, 'Marcos Mariano', '995.888.796-88');
 
 insert into cliente_detalhe (cliente_id, sexo, data_nascimento) values (1, 'MASCULINO', date_sub(sysdate(), interval 24 year));
 insert into cliente_detalhe (cliente_id, sexo, data_nascimento) values (2, 'MASCULINO', date_sub(sysdate(), interval 38 year));
